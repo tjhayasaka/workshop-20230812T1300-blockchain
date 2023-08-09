@@ -1,0 +1,63 @@
+diff --git a/chaincfg/params.go b/chaincfg/params.go
+index f11bcf26..f806d808 100644
+--- a/chaincfg/params.go
++++ b/chaincfg/params.go
+@@ -675,7 +675,7 @@ var TestNet3Params = Params{
+ // following normal discovery rules.  This is important as otherwise it would
+ // just turn into another public testnet.
+ var SimNetParams = Params{
+-       Name:        "simnet",
++       Name:        "mynet",
+        Net:         wire.SimNet,
+        DefaultPort: "18555",
+        DNSSeeds:    []DNSSeed{}, // NOTE: There must NOT be any seeds.
+@@ -688,13 +688,13 @@ var SimNetParams = Params{
+        BIP0034Height:            0, // Always active on simnet
+        BIP0065Height:            0, // Always active on simnet
+        BIP0066Height:            0, // Always active on simnet
+-       CoinbaseMaturity:         100,
++       CoinbaseMaturity:         10,
+        SubsidyReductionInterval: 210000,
+-       TargetTimespan:           time.Hour * 24 * 14, // 14 days
+-       TargetTimePerBlock:       time.Minute * 10,    // 10 minutes
+-       RetargetAdjustmentFactor: 4,                   // 25% less, 400% more
++       TargetTimespan:           time.Second * 2,  // 2 seconds
++       TargetTimePerBlock:       time.Second * 1,  // 1 second
++       RetargetAdjustmentFactor: 2,
+        ReduceMinDifficulty:      true,
+-       MinDiffReductionTime:     time.Minute * 20, // TargetTimePerBlock * 2
++       MinDiffReductionTime:     time.Second * 60, // 60 seconds
+        GenerateSupported:        true,
+
+        // Checkpoints ordered from oldest to newest.
+@@ -777,7 +777,7 @@ var SimNetParams = Params{
+
+        // BIP44 coin type used in the hierarchical deterministic path for
+        // address generation.
+-       HDCoinType: 115, // ASCII for s
++       HDCoinType: 4649, // MyCoin
+ }
+
+ // SigNetParams defines the network parameters for the default public signet
+diff --git a/wire/protocol.go b/wire/protocol.go
+index 3b414ec3..1f40c3be 100644
+--- a/wire/protocol.go
++++ b/wire/protocol.go
+@@ -163,7 +163,7 @@ const (
+        TestNet3 BitcoinNet = 0x0709110b
+
+        // SimNet represents the simulation test network.
+-       SimNet BitcoinNet = 0x12141c16
++       SimNet BitcoinNet = 0xdeadbeef
+ )
+
+ // bnStrings is a map of bitcoin networks back to their constant names for
+@@ -172,7 +172,7 @@ var bnStrings = map[BitcoinNet]string{
+        MainNet:  "MainNet",
+        TestNet:  "TestNet",
+        TestNet3: "TestNet3",
+-       SimNet:   "SimNet",
++       SimNet:   "MyNet",
+ }
+
+ // String returns the BitcoinNet in human-readable form.

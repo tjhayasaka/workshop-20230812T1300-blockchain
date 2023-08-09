@@ -1,0 +1,13 @@
+diff --git a/go.mod b/go.mod
+index d70e30c..1006786 100644
+--- a/go.mod
++++ b/go.mod
+@@ -31,6 +31,8 @@ require (
+        google.golang.org/grpc v1.18.0
+ )
+
++replace github.com/btcsuite/btcd => ../btcd          // ../btcd 内で行った mynet の変更を取り込む
++
+ require (
+        github.com/aead/siphash v1.0.1 // indirect
+        github.com/btcsuite/go-socks v0.0.0-20170105172521-4720035b7bfd // indirect
